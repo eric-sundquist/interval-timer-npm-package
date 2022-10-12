@@ -1,2 +1,2 @@
-# lab-3
+# lab-2
 Timer/intervall web app
