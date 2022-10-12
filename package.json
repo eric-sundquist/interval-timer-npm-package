@@ -1,0 +1,20 @@
+{
+  "name": "lab-2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "2.7.1",
+    "vite": "^3.1.0"
+  },
+  "dependencies": {
+    "tick-tock-timer": "^0.1.4"
+  }
+}
