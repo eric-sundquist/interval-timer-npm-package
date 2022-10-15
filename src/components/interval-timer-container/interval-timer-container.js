@@ -31,6 +31,9 @@ customElements.define(
         .querySelector('interval-timer-setup')
         .addEventListener('start-new-interval', (event) => {
           console.log(event.detail)
+          // HIDE: Setup component
+          // Show tiimer window
+          // TODO: START TIMER
         })
     }
   }
