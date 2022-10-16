@@ -9,9 +9,9 @@ template.innerHTML = `
     }
   </style>
 
-  <h1>Tick tock interval timer</h1>
+
   <p class="read-the-docs">
-    Click on the button for something exciting
+    Controls component
   </p>
 `
 

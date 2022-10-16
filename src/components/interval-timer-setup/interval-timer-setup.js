@@ -31,8 +31,8 @@ template.innerHTML = `
   </style>
     <form id="timer-form" action="">
       <div class="input-container">
-        <label for="working-time">Work time: </label>
-        <input type="number" id="working-time" min="1" max="9999" value="30" />
+        <label for="work-time">Work time: </label>
+        <input type="number" id="work-time" min="1" max="9999" value="30" />
       </div>
 
       <div class="input-container">
@@ -61,7 +61,7 @@ customElements.define(
         event.preventDefault()
         const startIntervalTimerEvent = new CustomEvent('start-new-interval', {
           detail: {
-            workingTime: this.shadowRoot.querySelector('#working-time').value,
+            workTime: this.shadowRoot.querySelector('#work-time').value,
             restTime: this.shadowRoot.querySelector('#rest-time').value,
             sets: this.shadowRoot.querySelector('#sets').value,
           },

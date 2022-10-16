@@ -9,14 +9,11 @@ template.innerHTML = `
     }
   </style>
 
-  <h1>Tick tock interval timer</h1>
-  <p class="read-the-docs">
-    Click on the button for something exciting
-  </p>
+    <h2 id="time">Insert time here</h2>
 `
 
 customElements.define(
-  'interval-timer-time-dislplay',
+  'interval-timer-time-display',
   class extends HTMLElement {
     constructor() {
       super()
