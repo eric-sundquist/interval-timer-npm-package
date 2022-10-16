@@ -61,13 +61,17 @@ customElements.define(
         event.preventDefault()
         const startIntervalTimerEvent = new CustomEvent('start-new-interval', {
           detail: {
-            workTime: this.shadowRoot.querySelector('#work-time').value,
-            restTime: this.shadowRoot.querySelector('#rest-time').value,
-            sets: this.shadowRoot.querySelector('#sets').value,
+            workTime: this.#convertStringSecondsToMs(this.shadowRoot.querySelector('#work-time').value),
+            restTime: this.#convertStringSecondsToMs(this.shadowRoot.querySelector('#rest-time').value),
+            sets: this.#convertStringSecondsToMs(this.shadowRoot.querySelector('#sets').value),
           },
         })
         this.dispatchEvent(startIntervalTimerEvent)
       })
+    }
+
+    #convertStringSecondsToMs(string) {
+      return parseInt(string) * 1000
     }
   }
 )

@@ -44,26 +44,26 @@ customElements.define(
     }
 
     /**
-     * @param {Object} userSetTimerData
+     * @param {Object} timerData
      */
-    #startTimer(userSetTimerData) {
-      this.#timer.setWorkTime(userSetTimerData.workTime)
-      this.#timer.setRestTime(userSetTimerData.restTime)
-      this.#timer.setSets(userSetTimerData.sets)
+    #startTimer(timerData) {
+      this.#setTimer(timerData)
 
-      timer.start()
+      this.#timer.start()
     }
 
-    #setupEventListerners(timer) {
-      this.#addStartIntervalEventListener()
-
-      timer.addEventListener('update', (event) => this.#handleTimerUpdate(event))
+    #setTimer(timerData) {
+      this.#timer.setWorkTime(timerData.workTime)
+      this.#timer.setRestTime(timerData.restTime)
+      this.#timer.setSets(timerData.sets)
     }
 
-    #addStartIntervalEventListener() {
+    #setupEventListerners() {
       this.shadowRoot
         .querySelector('interval-timer-setup')
         .addEventListener('start-new-interval', (event) => this.#handleStartTimerEvent(event))
+
+      this.#timer.addEventListener('updated', (event) => this.#handleTimerUpdate(event))
     }
 
     #handleStartTimerEvent(event) {
@@ -71,6 +71,15 @@ customElements.define(
 
       this.#toggleControls()
       this.#startTimer(event.detail)
+    }
+
+    #handleTimerUpdate(event) {
+      // TODO Set display component with time
+      console.log(event.detail.timeString)
+
+      const timeString = event.detail.timeString
+      const timeDisplayComponent = this.shadowRoot.querySelector('interval-timer-time-display')
+      timeDisplayComponent.setAttribute('time', timeString)
     }
 
     #toggleControls() {
