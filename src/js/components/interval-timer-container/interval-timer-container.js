@@ -1,7 +1,7 @@
 import '../interval-timer-setup'
 import '../interval-timer-time-display'
 import '../interval-timer-controls'
-import { IntervalTimer } from '../IntervalTimer'
+import { IntervalTimer } from '../../IntervalTimer'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -32,10 +32,35 @@ template.innerHTML = `
 customElements.define(
   'interval-timer-container',
   class extends HTMLElement {
+    #timer
+
     constructor() {
       super()
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
 
+      this.#timer = new IntervalTimer()
+
+      this.#setupEventListerners()
+    }
+
+    /**
+     * @param {Object} userSetTimerData
+     */
+    #startTimer(userSetTimerData) {
+      this.#timer.setWorkTime(userSetTimerData.workTime)
+      this.#timer.setRestTime(userSetTimerData.restTime)
+      this.#timer.setSets(userSetTimerData.sets)
+
+      timer.start()
+    }
+
+    #setupEventListerners(timer) {
+      this.#addStartIntervalEventListener()
+
+      timer.addEventListener('update', (event) => this.#handleTimerUpdate(event))
+    }
+
+    #addStartIntervalEventListener() {
       this.shadowRoot
         .querySelector('interval-timer-setup')
         .addEventListener('start-new-interval', (event) => this.#handleStartTimerEvent(event))
@@ -46,14 +71,6 @@ customElements.define(
 
       this.#toggleControls()
       this.#startTimer(event.detail)
-    }
-
-    /**
-     * @param {Object} userSetTimerData
-     */
-    #startTimer(userSetTimerData) {
-      const timer = new IntervalTimer(userSetTimerData.sets, userSetTimerData.workTime, userSetTimerData.restTime)
-      timer.start()
     }
 
     #toggleControls() {
