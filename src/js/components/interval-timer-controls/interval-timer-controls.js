@@ -61,6 +61,28 @@ customElements.define(
       this.#addEventListeners()
     }
 
-    #addEventListeners() {}
+    #addEventListeners() {
+      this.#startBtn.addEventListener('click', (event) => this.#handleStart(event))
+
+      this.#pauseBtn.addEventListener('click', (event) => this.#handlePause(event))
+
+      this.#resetBtn.addEventListener('click', (event) => this.#handleReset(event))
+    }
+
+    #handleStart() {
+      this.#dispatchEvent('start')
+    }
+
+    #handlePause() {
+      this.#dispatchEvent('pause')
+    }
+    #handleReset() {
+      this.#dispatchEvent('reset')
+    }
+
+    #dispatchEvent(eventName) {
+      const event = new CustomEvent(eventName)
+      this.dispatchEvent(event)
+    }
   }
 )

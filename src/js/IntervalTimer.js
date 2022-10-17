@@ -1,4 +1,5 @@
 import { Timer } from 'tick-tock-timer'
+import { Sound } from './Sound'
 
 export class IntervalTimer {
   /**
@@ -18,6 +19,7 @@ export class IntervalTimer {
   #restTime
   #timer
   #isWorkTime
+  #soundEffect
 
   /**
    * @type {HTMLSpanElement}
@@ -31,6 +33,7 @@ export class IntervalTimer {
     this.#restTime = restTime
     this.#isWorkTime = false
     this.#timer = new Timer()
+    this.#soundEffect = new Sound()
     this.#timer.addEventListener('expired', (event) => this.#handleTimerExpiredEvent(event))
   }
 
@@ -63,17 +66,18 @@ export class IntervalTimer {
     return this.#isWorkTime
   }
 
-  #handleTimerExpiredEvent(event) {
+  #handleTimerExpiredEvent() {
     if (this.#isWorkTime) {
+      this.#soundEffect.playDingDing()
       this.#isWorkTime = false
       this.#timer.setTime(this.#restTime)
     } else {
+      this.#soundEffect.playDing()
       this.#isWorkTime = true
       this.#setCount += 1
       this.#timer.setTime(this.#workTime)
     }
     if (this.#hasSetsLeft()) {
-      event.stopPropagation()
       this.#timer.start()
     }
   }

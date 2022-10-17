@@ -2,7 +2,6 @@ import '../interval-timer-setup'
 import '../interval-timer-time-display'
 import '../interval-timer-controls'
 import { IntervalTimer } from '../../IntervalTimer'
-import { Sound } from '../../Sound'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -35,15 +34,11 @@ customElements.define(
   class extends HTMLElement {
     #timer
 
-    #soundEffect
-
     constructor() {
       super()
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
 
       this.#timer = new IntervalTimer()
-
-      this.#soundEffect = new Sound()
 
       this.#setupEventListerners()
     }
@@ -88,15 +83,6 @@ customElements.define(
 
     #handleExpire(event) {
       this.#handleUpdate(event)
-      this.#playSound()
-    }
-
-    #playSound() {
-      if (this.#timer.isWorkTime) {
-        this.#soundEffect.playDingDing()
-      } else {
-        this.#soundEffect.playDing()
-      }
     }
 
     #toggleControls() {
