@@ -63,7 +63,7 @@ customElements.define(
           detail: {
             workTime: this.#convertStringSecondsToMs(this.shadowRoot.querySelector('#work-time').value),
             restTime: this.#convertStringSecondsToMs(this.shadowRoot.querySelector('#rest-time').value),
-            sets: this.#convertStringSecondsToMs(this.shadowRoot.querySelector('#sets').value),
+            sets: parseInt(this.shadowRoot.querySelector('#sets').value),
           },
         })
         this.dispatchEvent(startIntervalTimerEvent)

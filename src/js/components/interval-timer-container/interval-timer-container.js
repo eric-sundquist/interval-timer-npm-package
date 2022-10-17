@@ -2,6 +2,7 @@ import '../interval-timer-setup'
 import '../interval-timer-time-display'
 import '../interval-timer-controls'
 import { IntervalTimer } from '../../IntervalTimer'
+import { Sound } from '../../Sound'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -34,13 +35,27 @@ customElements.define(
   class extends HTMLElement {
     #timer
 
+    #soundEffect
+
     constructor() {
       super()
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
 
       this.#timer = new IntervalTimer()
 
+      this.#soundEffect = new Sound()
+
       this.#setupEventListerners()
+    }
+
+    #setupEventListerners() {
+      this.shadowRoot
+        .querySelector('interval-timer-setup')
+        .addEventListener('start-new-interval', (event) => this.#handleStart(event))
+
+      this.#timer.addEventListener('updated', (event) => this.#handleUpdate(event))
+
+      this.#timer.addEventListener('expired', (event) => this.#handleExpire(event))
     }
 
     /**
@@ -58,28 +73,30 @@ customElements.define(
       this.#timer.setSets(timerData.sets)
     }
 
-    #setupEventListerners() {
-      this.shadowRoot
-        .querySelector('interval-timer-setup')
-        .addEventListener('start-new-interval', (event) => this.#handleStartTimerEvent(event))
-
-      this.#timer.addEventListener('updated', (event) => this.#handleTimerUpdate(event))
-    }
-
-    #handleStartTimerEvent(event) {
+    #handleStart(event) {
       console.log(event.detail)
 
       this.#toggleControls()
       this.#startTimer(event.detail)
     }
 
-    #handleTimerUpdate(event) {
-      // TODO Set display component with time
-      console.log(event.detail.timeString)
-
+    #handleUpdate(event) {
       const timeString = event.detail.timeString
       const timeDisplayComponent = this.shadowRoot.querySelector('interval-timer-time-display')
       timeDisplayComponent.setAttribute('time', timeString)
+    }
+
+    #handleExpire(event) {
+      this.#handleUpdate(event)
+      this.#playSound()
+    }
+
+    #playSound() {
+      if (this.#timer.isWorkTime) {
+        this.#soundEffect.playDingDing()
+      } else {
+        this.#soundEffect.playDing()
+      }
     }
 
     #toggleControls() {

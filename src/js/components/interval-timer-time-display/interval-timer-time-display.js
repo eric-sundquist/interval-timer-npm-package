@@ -44,8 +44,6 @@ customElements.define(
 
     #setTimeElement(time) {
       const timeDisplayElement = this.shadowRoot.querySelector('#time')
-      console.log('BAM')
-      console.log(time)
       timeDisplayElement.textContent = time
     }
   }

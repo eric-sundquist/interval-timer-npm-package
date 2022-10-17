@@ -18,7 +18,11 @@ export class IntervalTimer {
   #restTime
   #timer
   #isWorkTime
-  #isRestTime
+
+  /**
+   * @type {HTMLSpanElement}
+   */
+  #eventHandlerElement = document.createElement('span')
 
   constructor(sets, workingTime, restTime) {
     this.#sets = sets
@@ -26,7 +30,6 @@ export class IntervalTimer {
     this.#workTime = workingTime
     this.#restTime = restTime
     this.#isWorkTime = false
-    this.#isRestTime = false
     this.#timer = new Timer()
     this.#timer.addEventListener('expired', (event) => this.#handleTimerExpiredEvent(event))
   }
@@ -56,30 +59,26 @@ export class IntervalTimer {
     this.#sets = sets
   }
 
-  #handleTimerExpiredEvent() {
-    if (this.setCount <= this.sets) {
-      if (this.#isWorkTime) {
-        // Do rest time
-        this.#isRestTime = true
-        this.#isWorkTime = false
+  get isWorkTime() {
+    return this.#isWorkTime
+  }
 
-        this.#timer.setTime(this.#restTime)
-      } else {
-        // do work time
-        this.#isRestTime = false
-        this.#isWorkTime = true
-        this.#setCount++
-
-        this.#timer.setTime(this.#workTime)
-      }
-
-      this.#timer.start()
+  #handleTimerExpiredEvent(event) {
+    if (this.#isWorkTime) {
+      this.#isWorkTime = false
+      this.#timer.setTime(this.#restTime)
     } else {
-      // intervals expired
+      this.#isWorkTime = true
+      this.#setCount += 1
+      this.#timer.setTime(this.#workTime)
+    }
+    if (this.#hasSetsLeft()) {
+      event.stopPropagation()
+      this.#timer.start()
     }
   }
 
-  #isStopped() {
-    return !(this.#isWorkTime && this.#isRestTime)
+  #hasSetsLeft() {
+    return this.#setCount <= this.#sets
   }
 }
