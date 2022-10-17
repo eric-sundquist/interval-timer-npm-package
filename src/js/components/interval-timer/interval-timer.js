@@ -13,9 +13,9 @@ template.innerHTML = `
       display: block;
     }
 
-    /* .hidden {
+    .hidden {
       display: none;
-    } */
+    }
   </style>
 
   <h1>Interval timer</h1>
@@ -32,25 +32,45 @@ template.innerHTML = `
 customElements.define(
   'interval-timer',
   class extends HTMLElement {
-    #timer
+    /**
+     * @type {IntervalTimer}
+     */
+    #intervalTimer
+    /**
+     * @type {HTMLElement}
+     */
+    #timeDisplayElement
+    /**
+     * @type {HTMLElement}
+     */
+    #controlsElement
+    /**
+     * @type {HTMLElement}
+     */
+    #setupElement
 
     constructor() {
       super()
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
 
-      this.#timer = new IntervalTimer()
+      this.#intervalTimer = new IntervalTimer()
+      this.#timeDisplayElement = this.shadowRoot.querySelector('interval-timer-time-display')
+      this.#controlsElement = this.shadowRoot.querySelector('interval-timer-controls')
+      this.#setupElement = this.shadowRoot.querySelector('interval-timer-setup')
 
       this.#setupEventListerners()
     }
 
     #setupEventListerners() {
-      this.shadowRoot
-        .querySelector('interval-timer-setup')
-        .addEventListener('start-new-interval', (event) => this.#handleStart(event))
+      this.#intervalTimer.addEventListener('updated', (event) => this.#handleTimeUpdate(event))
+      this.#intervalTimer.addEventListener('expired', (event) => this.#handleTimeUpdate(event))
+      this.#intervalTimer.addEventListener('reseted', (event) => this.#handleTimeUpdate(event))
 
-      this.#timer.addEventListener('updated', (event) => this.#handleUpdate(event))
+      this.#setupElement.addEventListener('start-new-interval', (event) => this.#handleStartNew(event))
 
-      this.#timer.addEventListener('expired', (event) => this.#handleExpire(event))
+      this.#controlsElement.addEventListener('start', () => this.#intervalTimer.start())
+      this.#controlsElement.addEventListener('pause', () => this.#intervalTimer.pause())
+      this.#controlsElement.addEventListener('reset', () => this.#intervalTimer.reset())
     }
 
     /**
@@ -59,30 +79,28 @@ customElements.define(
     #startTimer(timerData) {
       this.#setTimer(timerData)
 
-      this.#timer.start()
+      this.#intervalTimer.startNew()
     }
 
     #setTimer(timerData) {
-      this.#timer.setWorkTime(timerData.workTime)
-      this.#timer.setRestTime(timerData.restTime)
-      this.#timer.setSets(timerData.sets)
+      this.#intervalTimer.setWorkTime(timerData.workTime)
+      this.#intervalTimer.setRestTime(timerData.restTime)
+      this.#intervalTimer.setSets(timerData.sets)
     }
 
-    #handleStart(event) {
-      console.log(event.detail)
-
+    #handleStartNew(event) {
       this.#toggleControls()
       this.#startTimer(event.detail)
     }
 
-    #handleUpdate(event) {
+    #handleTimeUpdate(event) {
       const timeString = event.detail.timeString
       const timeDisplayComponent = this.shadowRoot.querySelector('interval-timer-time-display')
       timeDisplayComponent.setAttribute('time', timeString)
     }
 
     #handleExpire(event) {
-      this.#handleUpdate(event)
+      this.#handleTimeUpdate(event)
     }
 
     #toggleControls() {

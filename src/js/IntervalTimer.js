@@ -7,12 +7,10 @@ export class IntervalTimer {
    */
   #sets
   #setCount
-
   /**
    * @type {number} - time in milleseconds.
    */
   #workTime
-
   /**
    * @type {number} - time in milleseconds.
    */
@@ -37,10 +35,23 @@ export class IntervalTimer {
     this.#timer.addEventListener('expired', (event) => this.#handleTimerExpiredEvent(event))
   }
 
-  start() {
+  startNew() {
     this.#isWorkTime = true
     this.#timer.setTime(this.#workTime)
+    this.start()
+  }
+
+  start() {
     this.#timer.start()
+  }
+
+  pause() {
+    this.#timer.pause()
+  }
+
+  reset() {
+    this.#isWorkTime = true
+    this.#timer.setTime(this.#workTime)
   }
 
   addEventListener(event, callback) {
