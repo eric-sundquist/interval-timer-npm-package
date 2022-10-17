@@ -6,21 +6,61 @@ template.innerHTML = `
     }
     :host {
       display: block;
+      margin: 1rem;
+    }
+
+    button {
+      border-radius: 8px;
+      border: 1px solid transparent;
+      padding: 0.6em 1.2em;
+      font-size: 1em;
+      font-weight: 500;
+      font-family: inherit;
+      background-color: #1a1a1a;
+      cursor: pointer;
+      transition: border-color 0.25s;
+    }
+    button:hover {
+      border-color: #646cff;
+    }
+
+    button:active {
+      outline: 4px auto -webkit-focus-ring-color;
     }
   </style>
 
-
-  <p class="read-the-docs">
-    Controls component
-  </p>
+  <button id="start">Start</button>
+  <button id="pause">Pause</button>
+  <button id="reset">Reset</button>
 `
 
 customElements.define(
   'interval-timer-controls',
   class extends HTMLElement {
+    /**
+     * @type {HTMLButtonElement}
+     */
+    #startBtn
+    /**
+     * @type {HTMLButtonElement}
+     */
+    #pauseBtn
+    /**
+     * @type {HTMLButtonElement}
+     */
+    #resetBtn
+
     constructor() {
       super()
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
+
+      this.#startBtn = this.shadowRoot.querySelector('#start')
+      this.#pauseBtn = this.shadowRoot.querySelector('#pause')
+      this.#resetBtn = this.shadowRoot.querySelector('#reset')
+
+      this.#addEventListeners()
     }
+
+    #addEventListeners() {}
   }
 )

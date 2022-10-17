@@ -14,12 +14,12 @@ template.innerHTML = `
       display: block;
     }
 
-    .hidden {
+    /* .hidden {
       display: none;
-    }
+    } */
   </style>
 
-  <h1>Tick tock interval timer</h1>
+  <h1>Interval timer</h1>
   <p>
     This explains a jolly good tick tock interval timer.
   </p>
@@ -31,7 +31,7 @@ template.innerHTML = `
 `
 
 customElements.define(
-  'interval-timer-container',
+  'interval-timer',
   class extends HTMLElement {
     #timer
 
