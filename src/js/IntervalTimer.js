@@ -59,17 +59,17 @@ export class IntervalTimer {
   }
 
   setWorkTime(workTime) {
-    // TODO: Validation..
+    this.#validatePositiveInteger(workTime)
     this.#workTime = workTime
   }
 
   setRestTime(restTime) {
-    // TODO: Validation..
+    this.#validatePositiveInteger(restTime)
     this.#restTime = restTime
   }
 
   setSets(sets) {
-    // TODO: Validation..
+    this.#validatePositiveInteger(sets)
     this.#sets = sets
   }
 
@@ -95,5 +95,11 @@ export class IntervalTimer {
 
   #hasSetsLeft() {
     return this.#setCount <= this.#sets
+  }
+
+  #validatePositiveInteger(number) {
+    if (Number.isInteger(number) || Number.isNaN(number) || number < 0) {
+      throw new TypeError('Recieved argument is not of right type. Expected positive integer.')
+    }
   }
 }

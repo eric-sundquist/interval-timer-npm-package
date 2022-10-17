@@ -83,9 +83,13 @@ customElements.define(
     }
 
     #setTimer(timerData) {
-      this.#intervalTimer.setWorkTime(timerData.workTime)
-      this.#intervalTimer.setRestTime(timerData.restTime)
-      this.#intervalTimer.setSets(timerData.sets)
+      try {
+        this.#intervalTimer.setWorkTime(timerData.workTime)
+        this.#intervalTimer.setRestTime(timerData.restTime)
+        this.#intervalTimer.setSets(timerData.sets)
+      } catch (error) {
+        //TODO Display error..
+      }
     }
 
     #handleStartNew(event) {
