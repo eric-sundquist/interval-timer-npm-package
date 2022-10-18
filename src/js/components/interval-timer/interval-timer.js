@@ -76,14 +76,6 @@ customElements.define(
       this.#updateComponentVisability()
     }
 
-    /**
-     * @param {Object} timerData
-     */
-    #startTimer(timerData) {
-      this.#setTimer(timerData)
-      this.#intervalTimer.startNew()
-    }
-
     #setTimer(timerData) {
       this.#intervalTimer.setWorkTime(timerData.workTime)
       this.#intervalTimer.setRestTime(timerData.restTime)
@@ -109,6 +101,14 @@ customElements.define(
         this.#errorMessageElement.setErrorMessage(error.message)
         this.#errorMessageElement.classList.remove('hidden')
       }
+    }
+
+    /**
+     * @param {Object} timerData
+     */
+    #startTimer(timerData) {
+      this.#setTimer(timerData)
+      this.#intervalTimer.startNew()
     }
 
     /**

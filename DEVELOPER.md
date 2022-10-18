@@ -2,9 +2,9 @@
 
 ## Vision
 
-Tick-Tock Interval Timer app let the user define a working timer followed by a resting timer. These intervals can then by multiplied in forms of sets. Upon start and end of a working session the user is notified visually and by sound. The application is presented as a web app with a simplistic and minimalistic user interface.
+There are many uses for interval timers in our lives. For help as a study focus timer, i.e. Pomodoro timer, or in various forms of training. I use them almost every day.
 
-To set up a new timer the user defines a working time, resting time and how many times they should repeat, i.e. sets.
+Interval timer is an app that let the user define a working timer followed by a resting timer. These intervals can then by multiplied in forms of sets. Upon start and end of a working session the user is notified visually and by sound. The application is presented as a web app with a simplistic and minimalistic user interface.
 
 ## Requirements
 
@@ -40,6 +40,7 @@ Testing is performed via manual testing.
 ### Testreports
 
 Date: 18/10-22
+
 Version: git SHA number 52cdd39990930319a7036de94b0c10ea814d8744
 
 | Test case    | Result | Notes |
