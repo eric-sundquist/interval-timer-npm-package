@@ -20,9 +20,7 @@ template.innerHTML = `
   </style>
 
   <h1>Interval timer</h1>
-  <p>
-    This explains a jolly good tick tock interval timer.
-  </p>
+
   <interval-timer-error class="hidden"></interval-timer-error>
   <interval-timer-time-display class="hidden"></interval-timer-time-display>
   <interval-timer-controls class="hidden"></interval-timer-controls>

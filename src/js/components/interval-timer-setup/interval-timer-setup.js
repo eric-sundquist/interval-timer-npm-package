@@ -21,7 +21,7 @@ template.innerHTML = `
       justify-content: space-between;
     }
 
-    .input-container > input {
+     input[type=number] {
       width: 65px;
     }
     .input-container > input[type=submit]  {
@@ -45,21 +45,39 @@ template.innerHTML = `
       outline: 4px auto -webkit-focus-ring-color;
     }
 
+    .time-input {
+      padding-right:11px; 
+      text-align:right
+    }
+
+    .unit {
+      margin-left:-15px
+    }
+
   </style>
     <form id="timer-form" action="">
       <div class="input-container">
         <label for="work-time">Work time: </label>
-        <input type="number" id="work-time" min="1" max="9999" value="30" />
+        <div>
+          <input type="number" class="time-input" id="work-time" min="1" max="9999" value="30" />
+          <span class="unit">s</span>
+        </div>
       </div>
 
       <div class="input-container">
         <label for="rest-time">Rest time:</label>
-        <input type="number" id="rest-time" min="1" max="9999" value="15" />
+        <div>
+          <input type="number" class="time-input" id="rest-time" min="1" max="9999" value="15" />
+          <span class="unit">s</span>
+        </div>
       </div>
 
       <div class="input-container">
         <label for="sets">Sets:</label>
-        <input type="number" id="sets" min="-1" max="99" value="3" />
+        <div>
+          <input type="number" class="time-input" id="sets" min="-1" max="99" value="3" />
+          <span class="unit">s</span>
+        </div>
       </div>
       <div class="input-container">
         <input  type="submit" value="Start" />
