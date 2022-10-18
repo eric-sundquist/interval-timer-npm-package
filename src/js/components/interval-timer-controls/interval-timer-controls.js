@@ -32,6 +32,7 @@ template.innerHTML = `
   <button id="start">Start</button>
   <button id="pause">Pause</button>
   <button id="reset">Reset</button>
+  <button id="exit">Exit</button>
 `
 
 customElements.define(

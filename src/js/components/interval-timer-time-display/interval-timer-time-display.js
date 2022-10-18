@@ -7,9 +7,13 @@ template.innerHTML = `
     :host {
       display: block;
     }
+
+    h1 {
+      font-size: 3.5rem;
+    }
   </style>
 
-    <h2 id="time">Insert time here</h2>
+    <h1 id="time">Insert time here</h1>
 `
 
 customElements.define(
@@ -44,7 +48,7 @@ customElements.define(
 
     #setTimeElement(time) {
       const timeDisplayElement = this.shadowRoot.querySelector('#time')
-      timeDisplayElement.textContent = time
+      timeDisplayElement.textContent = time.slice(0, -1)
     }
   }
 )

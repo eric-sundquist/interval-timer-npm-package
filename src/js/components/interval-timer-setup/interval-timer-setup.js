@@ -14,17 +14,29 @@ template.innerHTML = `
       gap: 0.5rem;
       align-items: center;
     }
+    .time-input {
+      padding-right:11px; 
+      text-align:right
+    }
+
+    .unit {
+      margin-left:-15px
+    }
 
     .input-container {
       display: flex;
-      width: 160px;
+      width: 100%;
       justify-content: space-between;
     }
 
-     input[type=number] {
-      width: 65px;
+    .input-field {
+      margin-right: 6px;
     }
-    .input-container > input[type=submit]  {
+
+     input[type=number] {
+      /* width: 65px; */
+    }
+    input[type=submit]  {
       width: 100%;
       border-radius: 8px;
       border: 1px solid transparent;
@@ -37,52 +49,44 @@ template.innerHTML = `
       transition: border-color 0.25s;
     }
 
-    .input-container > input[type=submit]:hover {
+    input[type=submit]:hover {
       border-color: #646cff;
     }
 
-    .input-container > input[type=submit]:active {
+    input[type=submit]:active {
       outline: 4px auto -webkit-focus-ring-color;
     }
 
-    .time-input {
-      padding-right:11px; 
-      text-align:right
-    }
-
-    .unit {
-      margin-left:-15px
-    }
 
   </style>
-    <form id="timer-form" action="">
-      <div class="input-container">
-        <label for="work-time">Work time: </label>
-        <div>
-          <input type="number" class="time-input" id="work-time" min="1" max="9999" value="30" />
-          <span class="unit">s</span>
-        </div>
-      </div>
 
-      <div class="input-container">
-        <label for="rest-time">Rest time:</label>
-        <div>
-          <input type="number" class="time-input" id="rest-time" min="1" max="9999" value="15" />
-          <span class="unit">s</span>
-        </div>
+  <h1>Interval timer</h1>
+  <form id="timer-form" action="">
+    <div class="input-container">
+      <label for="work-time">Work time: </label>
+      <div class="input-field">
+        <input type="number" class="time-input" id="work-time" min="1" max="9999" value="30" />
+        <span class="unit">s</span>
       </div>
-
-      <div class="input-container">
-        <label for="sets">Sets:</label>
-        <div>
-          <input type="number" class="time-input" id="sets" min="-1" max="99" value="3" />
-          <span class="unit">s</span>
-        </div>
+    </div>
+    <div class="input-container">
+      <label for="rest-time">Rest time:</label>
+      <div class="input-field">
+        <input type="number" class="time-input" id="rest-time" min="1" max="9999" value="15" />
+        <span class="unit">s</span>
       </div>
-      <div class="input-container">
-        <input  type="submit" value="Start" />
+    </div>
+    <div class="input-container">
+      <label for="sets">Sets:</label>
+      <div class="input-field">
+        <input type="number" class="time-input" id="sets" min="-1" max="99" value="3" />
+        <span class="unit">s</span>
       </div>
-    </form>
+    </div>
+    <div class="input-container">
+      <input  type="submit" value="Start" />
+    </div>
+  </form>
 `
 
 customElements.define(

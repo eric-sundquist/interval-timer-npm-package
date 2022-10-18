@@ -7,9 +7,6 @@ import { IntervalTimer } from '../../IntervalTimer'
 const template = document.createElement('template')
 template.innerHTML = `
   <style>
-    * {
-      box-sizing: border-box;
-    }
     :host {
       display: block;
     }
@@ -18,8 +15,6 @@ template.innerHTML = `
       display: none;
     }
   </style>
-
-  <h1>Interval timer</h1>
 
   <interval-timer-error class="hidden"></interval-timer-error>
   <interval-timer-time-display class="hidden"></interval-timer-time-display>
@@ -102,7 +97,7 @@ customElements.define(
 
       try {
         this.#startTimer(event.detail)
-        this.#toggleControls()
+        this.#updateComponentVisability()
       } catch (error) {
         this.#errorMessageElement.setAttribute('error-message', error.message)
         this.#errorMessageElement.classList.remove('hidden')
@@ -111,23 +106,14 @@ customElements.define(
 
     #handleTimeUpdate(event) {
       const timeString = event.detail.timeString
-      const timeDisplayComponent = this.shadowRoot.querySelector('interval-timer-time-display')
-      timeDisplayComponent.setAttribute('time', timeString)
+
+      this.#timeDisplayElement.setAttribute('time', timeString)
     }
 
-    #handleExpire(event) {
-      this.#handleTimeUpdate(event)
-    }
-
-    #toggleControls() {
-      const timeDisplayElement = this.shadowRoot.querySelector('interval-timer-time-display')
-      timeDisplayElement.classList.toggle('hidden')
-
-      const controlsElement = this.shadowRoot.querySelector('interval-timer-controls')
-      controlsElement.classList.toggle('hidden')
-
-      const setupElement = this.shadowRoot.querySelector('interval-timer-setup')
-      setupElement.classList.toggle('hidden')
+    #updateComponentVisability() {
+      this.#timeDisplayElement.classList.toggle('hidden')
+      this.#controlsElement.classList.toggle('hidden')
+      this.#setupElement.classList.toggle('hidden')
     }
   }
 )
