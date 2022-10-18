@@ -98,8 +98,8 @@ export class IntervalTimer {
   }
 
   #validatePositiveInteger(number) {
-    if (Number.isInteger(number) || Number.isNaN(number) || number < 0) {
-      throw new TypeError('Recieved argument is not of right type. Expected positive integer.')
+    if (!Number.isInteger(number) || Number.isNaN(number) || number < 1) {
+      throw new TypeError('Recieved argument is not of right type. Expected integer greater than 0.')
     }
   }
 }

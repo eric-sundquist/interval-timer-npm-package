@@ -59,7 +59,7 @@ template.innerHTML = `
 
       <div class="input-container">
         <label for="sets">Sets:</label>
-        <input type="number" id="sets" min="1" max="99" value="3" />
+        <input type="number" id="sets" min="-1" max="99" value="3" />
       </div>
       <div class="input-container">
         <input  type="submit" value="Start" />

@@ -1,6 +1,7 @@
 import '../interval-timer-setup'
 import '../interval-timer-time-display'
 import '../interval-timer-controls'
+import '../interval-timer-error'
 import { IntervalTimer } from '../../IntervalTimer'
 
 const template = document.createElement('template')
@@ -22,7 +23,7 @@ template.innerHTML = `
   <p>
     This explains a jolly good tick tock interval timer.
   </p>
-
+  <interval-timer-error class="hidden"></interval-timer-error>
   <interval-timer-time-display class="hidden"></interval-timer-time-display>
   <interval-timer-controls class="hidden"></interval-timer-controls>
   <interval-timer-setup></interval-timer-setup>
@@ -48,6 +49,10 @@ customElements.define(
      * @type {HTMLElement}
      */
     #setupElement
+    /**
+     * @type {HTMLElement}
+     */
+    #errorMessageElement
 
     constructor() {
       super()
@@ -57,6 +62,7 @@ customElements.define(
       this.#timeDisplayElement = this.shadowRoot.querySelector('interval-timer-time-display')
       this.#controlsElement = this.shadowRoot.querySelector('interval-timer-controls')
       this.#setupElement = this.shadowRoot.querySelector('interval-timer-setup')
+      this.#errorMessageElement = this.shadowRoot.querySelector('interval-timer-error')
 
       this.#setupEventListerners()
     }
@@ -78,23 +84,31 @@ customElements.define(
      */
     #startTimer(timerData) {
       this.#setTimer(timerData)
-
       this.#intervalTimer.startNew()
     }
 
     #setTimer(timerData) {
-      try {
-        this.#intervalTimer.setWorkTime(timerData.workTime)
-        this.#intervalTimer.setRestTime(timerData.restTime)
-        this.#intervalTimer.setSets(timerData.sets)
-      } catch (error) {
-        //TODO Display error..
-      }
+      this.#intervalTimer.setWorkTime(timerData.workTime)
+      this.#intervalTimer.setRestTime(timerData.restTime)
+      this.#intervalTimer.setSets(timerData.sets)
+    }
+
+    #isErrorMessageHidden() {
+      return this.#errorMessageElement.classList.contains('hidden')
     }
 
     #handleStartNew(event) {
-      this.#toggleControls()
-      this.#startTimer(event.detail)
+      if (!this.#isErrorMessageHidden()) {
+        this.#errorMessageElement.classList.add('hidden')
+      }
+
+      try {
+        this.#startTimer(event.detail)
+        this.#toggleControls()
+      } catch (error) {
+        this.#errorMessageElement.setAttribute('error-message', error.message)
+        this.#errorMessageElement.classList.remove('hidden')
+      }
     }
 
     #handleTimeUpdate(event) {
