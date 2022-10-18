@@ -20,8 +20,9 @@ To set up a new timer the user defines a working time, resting time and how many
 4. A user should be able to pause and reset a started interval.
 5. When working starts the user should be notified (sound, color, text)
 6. When working ends the user should be notified (sound, color, text)
-7. (?) Spara presets
-8. (?) Ställa in fler variabler för intervall. Till exempel köra 7:3 x 6 rep x 5 set. hangboard.
+7. After the working time on the last set the timer should finish (not run the last rest timer)
+8. (?) Spara presets
+9. (?) Ställa in fler variabler för intervall. Till exempel köra 7:3 x 6 rep x 5 set. hangboard.
 
 ### Non-Functional requirements
 

@@ -27,7 +27,7 @@ customElements.define(
 
     setTime(time) {
       const timeDisplayElement = this.shadowRoot.querySelector('#time')
-      timeDisplayElement.textContent = time.slice(0, -1)
+      timeDisplayElement.textContent = time
     }
 
     setTimerStatus(isWorkingTime, isExpired) {
@@ -46,9 +46,6 @@ customElements.define(
 
     setSetsStatus(currentSet, totalSets) {
       const setStatusElement = this.shadowRoot.querySelector('#sets-status')
-      if (currentSet > totalSets) {
-        currentSet = totalSets
-      }
       setStatusElement.textContent = `${currentSet} / ${totalSets}`
     }
   }

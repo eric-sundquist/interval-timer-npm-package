@@ -20,6 +20,7 @@ export class IntervalTimer {
   #restTime
   #timer
   #isWorkTime
+  #isExpired
   #soundEffect
 
   /**
@@ -33,9 +34,50 @@ export class IntervalTimer {
     this.#workTime = workingTime
     this.#restTime = restTime
     this.#isWorkTime = false
+    this.#isExpired = false
     this.#timer = new Timer()
     this.#soundEffect = new Sound()
-    this.#timer.addEventListener('expired', (event) => this.#handleTimerExpiredEvent(event))
+    this.#timer.addEventListener('expired', (event) => this.#handleTimerInstanceExpired(event))
+  }
+
+  #handleTimerInstanceExpired() {
+    if (this.#isWorkTime) {
+      this.#handleWorkTimerExpire()
+    } else {
+      this.#handleRestTimeExpire()
+    }
+  }
+
+  #handleWorkTimerExpire() {
+    this.#soundEffect.playDingDing()
+
+    if (!this.#isLastSet()) {
+      this.#doRestTimer()
+    } else {
+      this.#isExpired = true
+    }
+  }
+
+  #isLastSet() {
+    return this.#currentSet === this.#sets
+  }
+
+  #handleRestTimeExpire() {
+    this.#soundEffect.playDing()
+    this.#currentSet += 1
+    this.#doWorkTimer()
+  }
+
+  #doRestTimer() {
+    this.#isWorkTime = false
+    this.#timer.setTime(this.#restTime)
+    this.#timer.start()
+  }
+
+  #doWorkTimer() {
+    this.#isWorkTime = true
+    this.#timer.setTime(this.#workTime)
+    this.#timer.start()
   }
 
   startNew() {
@@ -54,6 +96,8 @@ export class IntervalTimer {
 
   reset() {
     this.#isWorkTime = true
+    this.#isExpired = false
+    this.#currentSet = 1
     this.#timer.setTime(this.#workTime)
   }
 
@@ -88,24 +132,8 @@ export class IntervalTimer {
     return this.#isWorkTime
   }
 
-  #handleTimerExpiredEvent() {
-    if (this.#isWorkTime) {
-      this.#soundEffect.playDingDing()
-      this.#isWorkTime = false
-      this.#timer.setTime(this.#restTime)
-    } else {
-      this.#soundEffect.playDing()
-      this.#isWorkTime = true
-      this.#currentSet += 1
-      this.#timer.setTime(this.#workTime)
-    }
-    if (!this.isExpired()) {
-      this.#timer.start()
-    }
-  }
-
   isExpired() {
-    return this.#currentSet > this.#sets
+    return this.#isExpired
   }
 
   #validatePositiveInteger(number) {
