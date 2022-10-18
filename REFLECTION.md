@@ -168,7 +168,7 @@ I den här uppgiften har jag gjort manuella tester och har därför inget exempe
 
 ## Kapitel 10 - Classes
 
-Likt funktioner ska klasser hållas små, bryt ut, bryt ut! Variabler kommer först och därefter publika metoder, funktioners nyhets koncept gäller även här. Gör en sak och var sammhängande (cohesion). Encapsulera sånt som omvärlden inte behöver veta.
+Likt funktioner ska klasser hållas små, bryt ut, bryt ut! Variabler kommer först och därefter publika metoder, funktioners nyhets koncept gäller även här. Gör en sak och var sammhängande (cohesion). Encapsulera sånt som omvärlden inte behöver veta. Lättare sagt en gjort, speciellt som ny inom objekt orienterad programmering.
 
 Här kund jag bryta ut en Sound klass från IntervalTimer:
 
@@ -204,4 +204,8 @@ export class Sound {
 
 ## Kapitel 11 - Systems
 
-Har lyfts mer objekt orienterad och arkitekturell metodik för att hjälpa till att abstrahera stor system så att de kan utvecklas utan att förloras i dess komplexitet.
+Har lyfts mer objekt orienterad och arkitekturell metodik för att hjälpa till att abstrahera stora system så att de kan utvecklas utan att förloras i dess komplexitet. Divide and conquer stora problem. Designa en arkitektur med abstrationer på högnivå. Det är en balansgång av att ha en hårt definerad arkitektur och att jobba mer agilt/TDD.
+
+CC lyfter vikten av att separera konstruktion av object från där den används. Detta i går stick i stäv med "separation of concerns". Till exempel genom att flytta skapandet av objekt till main metoden i java.
+
+Jag kan tycka att det är svårt att alltid följa regelrätt object orientering när jag skriver javascript för webben. Det finns mycket bagage jag bär runt på i JS som inte är object orienterat och många tekniker man använder har andra normer/tillvägagångsett en vad man normalt hade använt i till exempel java. Jag funderade mycket på att refactorer `interval-timer` klassen/komponenten och bryta ut någon slags kontroller klass och låta allt skapas i en "main" metod som körs när html laddas in. Var dock för fast i webcomponents tänket och fick inte till någon bra lösnig. Så nu agerar `interval-timer` både skapare, controller och view.
