@@ -30,11 +30,11 @@ template.innerHTML = `
     }
 
     .input-field {
-      margin-right: 6px;
+      margin-right: 7px;
     }
 
      input[type=number] {
-      /* width: 65px; */
+      width: 65px;
     }
     input[type=submit]  {
       width: 100%;

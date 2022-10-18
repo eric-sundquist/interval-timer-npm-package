@@ -62,7 +62,7 @@ customElements.define(
 
     #setupEventListerners() {
       this.#intervalTimer.addEventListener('updated', (event) => this.#handleTimeUpdate(event))
-      this.#intervalTimer.addEventListener('expired', (event) => this.#handleTimeUpdate(event))
+      this.#intervalTimer.addEventListener('expired', (event) => this.#handleTimeExpired(event))
       this.#intervalTimer.addEventListener('reseted', (event) => this.#handleTimeUpdate(event))
 
       this.#setupElement.addEventListener('start-new-interval', (event) => this.#handleStartNew(event))
@@ -112,10 +112,20 @@ customElements.define(
 
     #handleTimeUpdate(event) {
       const time = event.detail.timeString
-      this.#timeDisplayElement.setAttribute('time', time)
-      this.#timeDisplayElement.setAttribute('isWorkTime', this.#intervalTimer.isWorkTime)
-      this.#timeDisplayElement.setAttribute('totalSets', this.#intervalTimer.getSets())
-      this.#timeDisplayElement.setAttribute('currentSet', this.#intervalTimer.getCurrentSet())
+      this.#timeDisplayElement.setTime(time)
+
+      this.#timeDisplayElement.setTimerStatus(this.#intervalTimer.isWorkTime())
+
+      this.#timeDisplayElement.setSetsStatus(this.#intervalTimer.getCurrentSet(), this.#intervalTimer.getSets())
+    }
+
+    #handleTimeExpired(event) {
+      const time = event.detail.timeString
+      this.#timeDisplayElement.setTime(time)
+
+      this.#timeDisplayElement.setTimerStatus(this.#intervalTimer.isWorkTime(), this.#intervalTimer.isExpired())
+
+      this.#timeDisplayElement.setSetsStatus(this.#intervalTimer.getCurrentSet(), this.#intervalTimer.getSets())
     }
 
     #updateComponentVisability() {

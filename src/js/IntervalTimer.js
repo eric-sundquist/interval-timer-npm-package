@@ -84,7 +84,7 @@ export class IntervalTimer {
     return this.#currentSet
   }
 
-  get isWorkTime() {
+  isWorkTime() {
     return this.#isWorkTime
   }
 
@@ -99,13 +99,13 @@ export class IntervalTimer {
       this.#currentSet += 1
       this.#timer.setTime(this.#workTime)
     }
-    if (this.#hasSetsLeft()) {
+    if (!this.isExpired()) {
       this.#timer.start()
     }
   }
 
-  #hasSetsLeft() {
-    return this.#currentSet <= this.#sets
+  isExpired() {
+    return this.#currentSet > this.#sets
   }
 
   #validatePositiveInteger(number) {

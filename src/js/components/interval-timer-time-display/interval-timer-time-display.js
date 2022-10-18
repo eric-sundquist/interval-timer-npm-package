@@ -12,8 +12,9 @@ template.innerHTML = `
       font-size: 3.5rem;
     }
   </style>
-
-    <h1 id="time">Insert time here</h1>
+    <h2 id="timer-status"></h2>
+    <h1 id="time"></h1>
+    <h3 id="sets-status"><h3>
 `
 
 customElements.define(
@@ -24,31 +25,31 @@ customElements.define(
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
     }
 
-    /**
-     * Attributes to monitor for changes.
-     *
-     * @returns {string[]} A string array of attributes to monitor.
-     */
-    static get observedAttributes() {
-      return ['time']
+    setTime(time) {
+      const timeDisplayElement = this.shadowRoot.querySelector('#time')
+      timeDisplayElement.textContent = time.slice(0, -1)
     }
 
-    /**
-     * Called when observed attribute(s) changes.
-     *
-     * @param {string} name - The attribute's name.
-     * @param {*} oldValue - The old value.
-     * @param {*} newValue - The new value.
-     */
-    attributeChangedCallback(name, oldValue, newValue) {
-      if (name === 'time') {
-        this.#setTimeElement(newValue)
+    setTimerStatus(isWorkingTime, isExpired) {
+      const timerStatusElement = this.shadowRoot.querySelector('#timer-status')
+
+      if (isExpired) {
+        timerStatusElement.textContent = 'Finished'
+      } else {
+        if (isWorkingTime) {
+          timerStatusElement.textContent = 'Work'
+        } else {
+          timerStatusElement.textContent = 'Rest'
+        }
       }
     }
 
-    #setTimeElement(time) {
-      const timeDisplayElement = this.shadowRoot.querySelector('#time')
-      timeDisplayElement.textContent = time.slice(0, -1)
+    setSetsStatus(currentSet, totalSets) {
+      const setStatusElement = this.shadowRoot.querySelector('#sets-status')
+      if (currentSet > totalSets) {
+        currentSet = totalSets
+      }
+      setStatusElement.textContent = `${currentSet} / ${totalSets}`
     }
   }
 )

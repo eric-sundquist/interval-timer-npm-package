@@ -8,10 +8,19 @@ export class Sound {
   }
 
   playDing() {
+    this.#stopSound(this.#dingDingSound)
+
     this.#dingSound.play()
   }
 
   playDingDing() {
+    this.#stopSound(this.#dingSound)
+
     this.#dingDingSound.play()
+  }
+
+  #stopSound(sound) {
+    sound.pause()
+    sound.currentTime = 0
   }
 }
