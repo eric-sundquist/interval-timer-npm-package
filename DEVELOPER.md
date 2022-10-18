@@ -24,18 +24,46 @@ Testing is performed via manual testing.
 
 ### Test cases
 
-| Test case | What is tested | Input                                                        | Output |
-| --------- | -------------- | ------------------------------------------------------------ | ------ |
-| 1         | Req 1.         | Start the application by following the instruction in README |        |
+| Test case | What is tested | Input                                                                    | Output                                                                                                                                  |
+| --------- | -------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| 1         | Req 1.         | Start the application by following the instruction in README             | ![output](./img/test-init-load.png)                                                                                                     |
+| 2         | Req 2. Req 3.  | Requires TC 1. Enter work time 20, rest time 10 and sets 3. Press start. | Timer should start countdown from 20. "Work" is diplayed above timer. <br/> ![output](./img/test-timer-started.png)                     |
+| 3         | Req 3. Req 6.  | Requires TC 2. Wait 20 seconds.                                          | After 20 seconds the time should make a sound and init the rest countdown. Counting down from 10 and displaying "Rest" above the timer. |
+| 4         | Req 4.         | Requires TC 2. Press "Pause"                                             | The timer should pause its countdown                                                                                                    |
+| 5         | Req 4.         | Requires TC 4. Press "Start".                                            | The timer should start from where it was paused.                                                                                        |
+| 6         | Req 4.         | Requires TC 5. Press "Reset".                                            | The timer should reset and now display 20.                                                                                              |
+| 7         | Req 4.         | Requires TC 6. Press "Start".                                            | The timer should start counting down from 20.                                                                                           |
+| 8         | Req 5.         | Requires TC 7. Press "Exit".                                             | The timer should disappear and the inital view shown. Like Testcase 1 output.                                                           |
+| 9         | Req 5.         | Requires TC 8. Enter work time 30, rest time 20 and sets 5. Press start. | Timer should start countdown from 30.                                                                                                   |
+| 10        | Req 7.         | Requires TC 2. Wait until the final third working interval reaches 0.    | The timer should read 0 and display "Finished" above it.                                                                                |
 
-| Test case nr | What is tested                                                                                                                      | Input                                                                                | Output                                                                                                                                        | Result PASS/FAIL |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| 1            | Instansiering av ett Timer object och utskrift av tid getTimeString-metoden. Utan att ställa någon tid på timern.                   | Starta upp test-appen genom att följa instruktionerna i README filen.                | Sidan ska laddas och tiden mellan "Set Timer" och timer kontrollerna ska visa 00:00.                                                          | PASS             |
-| 2            | Sätta tiden på timern med setTime-metoden. Testar även getTimeString-metoden för att visa timerns interna tid i test applikationen. | Skriv in 12345 i inputfältet. Tryck på Set Timer.                                    | 03:25:45:00 ska visas                                                                                                                         | PASS             |
-| 3            | Start av timern med start-metoden.                                                                                                  | Förkrav: Testfall ovan. Tryck därefter Startknappen.                                 | Timern ska nu börja räkna nedåt.                                                                                                              | PASS             |
-| 4            | Pausa timern med pause-metoden.                                                                                                     | Förkrav: Testfall ovan. Tryck därefter på pause-knappen.                             | Timern ska stanna på den tid den var på när knappen trycktes.                                                                                 | PASS             |
-| 5            | Återgå till att räkna ner efter pausning.                                                                                           | Förkav: Testfall ovan. Tryck på start-knappen                                        | Timern ska nu börja räkna ner från den tiden som den var pausad på.                                                                           | PASS             |
-| 6            | Återställning av tiden på timern med reset-metoden.                                                                                 | Förkrav: Testfall ovan. Tryck på reset-knappen.                                      | Tiden ska nu visa den tid som den först sattas till i testfall 2. Alltså den ska visa 03:25:45:00. Tiden ska vara stoppad och inte räkna ner. | PASS             |
-| 7            | Lägga till tid till en startad timer.                                                                                               | Förkrav: Testfall 3. Tryck på +5 knappen.                                            | 5 sekunder ska ha adderats till tiden.                                                                                                        | PASS             |
-| 8            | Dra av tid från timern.                                                                                                             | Förkrav: Testfall 3. Tryck på -5 knappen.                                            | 5 sekunder ska ha dragits av tiden.                                                                                                           | PASS             |
-| 9            | När timern når 0 ska ett expired event skickas ut och timern stannar på 0.                                                          | Förkrav: Testfall 1. Sätt timern på 5 sekunder och tryck på start. Vänta 5 sekunder. | Timern ska efter 5 sekunder stanna på 0 och i consolen printas "Timer expired"                                                                | PASS             |
+### Testreports
+
+Date: 18/10-22
+Version: git SHA number 52cdd39990930319a7036de94b0c10ea814d8744
+
+| Test case    | Result | Notes |
+| ------------ | ------ | ----- |
+| Test case 1  | PASS   |       |
+| Test case 2  | PASS   |       |
+| Test case 3  | PASS   |       |
+| Test case 4  | PASS   |       |
+| Test case 5  | PASS   |       |
+| Test case 6  | PASS   |       |
+| Test case 7  | PASS   |       |
+| Test case 8  | PASS   |       |
+| Test case 9  | PASS   |       |
+| Test case 10 | PASS   |       |
+
+## Design
+
+_A picture says more than a thousand words!_ :wink:
+
+![class diagram](./img/basic-class-diagram.png)
+
+## Further improvments
+
+- Custom intervals. Be able to add more than 2 intervalls in a set.
+- Display diffrent colors of background depending on interval state.
+- Custom colors and notification sounds.
+- Create mobile / PWA version to be able to run in the background.

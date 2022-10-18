@@ -22,7 +22,8 @@ Example of use:
 2. Go to directory, `cd lab-2`
 3. Install dev dependencies, `npm i`
 4. Start dev server, `npm run dev`
-5. Use app
+5. Open the localhost url, presented in the terminal, in your browser.
+6. Use app
 
 ## Basic usage
 
