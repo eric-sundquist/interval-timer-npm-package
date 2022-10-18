@@ -12,6 +12,7 @@ template.innerHTML = `
       font-size: 3.5rem;
     }
   </style>
+  
     <h2 id="timer-status"></h2>
     <h1 id="time"></h1>
     <h3 id="sets-status"><h3>
@@ -25,11 +26,18 @@ customElements.define(
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
     }
 
+    /**
+     * @param {String} time
+     */
     setTime(time) {
       const timeDisplayElement = this.shadowRoot.querySelector('#time')
       timeDisplayElement.textContent = time
     }
 
+    /**
+     * @param {boolean} isWorkingTime
+     * @param {boolean} isExpired
+     */
     setTimerStatus(isWorkingTime, isExpired) {
       const timerStatusElement = this.shadowRoot.querySelector('#timer-status')
 
@@ -44,6 +52,10 @@ customElements.define(
       }
     }
 
+    /**
+     * @param {number} currentSet
+     * @param {number} totalSets
+     */
     setSetsStatus(currentSet, totalSets) {
       const setStatusElement = this.shadowRoot.querySelector('#sets-status')
       setStatusElement.textContent = `${currentSet} / ${totalSets}`

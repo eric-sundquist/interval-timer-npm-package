@@ -90,6 +90,9 @@ customElements.define(
       this.#dispatchEvent('exit')
     }
 
+    /**
+     * @param {String} eventName
+     */
     #dispatchEvent(eventName) {
       const event = new CustomEvent(eventName)
       this.dispatchEvent(event)

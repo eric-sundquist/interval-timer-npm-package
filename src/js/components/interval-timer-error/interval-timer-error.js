@@ -31,19 +31,10 @@ customElements.define(
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
     }
 
-    static get observedAttributes() {
-      return ['error-message']
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-      console.log(name)
-      console.log(newValue)
-      if (name === 'error-message') {
-        this.#setErrorMessage(newValue)
-      }
-    }
-
-    #setErrorMessage(message) {
+    /**
+     * @param {String} message
+     */
+    setErrorMessage(message) {
       const element = this.shadowRoot.querySelector('#errorMessage')
       console.log(message)
       element.textContent = message

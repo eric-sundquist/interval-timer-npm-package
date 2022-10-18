@@ -14,6 +14,7 @@ template.innerHTML = `
       gap: 0.5rem;
       align-items: center;
     }
+
     .time-input {
       padding-right:11px; 
       text-align:right
@@ -56,8 +57,6 @@ template.innerHTML = `
     input[type=submit]:active {
       outline: 4px auto -webkit-focus-ring-color;
     }
-
-
   </style>
 
   <h1>Interval timer</h1>
@@ -109,6 +108,10 @@ customElements.define(
       })
     }
 
+    /**
+     * @param {String} string - time in seconds.
+     * @returns {number} - time in milliseconds.
+     */
     #convertStringSecondsToMs(string) {
       return parseInt(string) * 1000
     }

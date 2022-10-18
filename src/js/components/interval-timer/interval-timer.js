@@ -15,12 +15,10 @@ template.innerHTML = `
       display: none;
     }
   </style>
-
   <interval-timer-error class="hidden"></interval-timer-error>
   <interval-timer-time-display class="hidden"></interval-timer-time-display>
   <interval-timer-controls class="hidden"></interval-timer-controls>
   <interval-timer-setup></interval-timer-setup>
-
 `
 
 customElements.define(
@@ -96,6 +94,9 @@ customElements.define(
       return this.#errorMessageElement.classList.contains('hidden')
     }
 
+    /**
+     * @param {Event} event
+     */
     #handleStartNew(event) {
       if (!this.#isErrorMessageHidden()) {
         this.#errorMessageElement.classList.add('hidden')
@@ -105,13 +106,17 @@ customElements.define(
         this.#startTimer(event.detail)
         this.#updateComponentVisability()
       } catch (error) {
-        this.#errorMessageElement.setAttribute('error-message', error.message)
+        this.#errorMessageElement.setErrorMessage(error.message)
         this.#errorMessageElement.classList.remove('hidden')
       }
     }
 
+    /**
+     * @param {Event} event
+     */
     #handleTimeUpdate(event) {
-      const time = event.detail.timeString
+      const time = event.detail.minutesSecondsString
+      console.log(time)
       this.#timeDisplayElement.setTime(time)
 
       this.#timeDisplayElement.setTimerStatus(this.#intervalTimer.isWorkTime())
@@ -119,12 +124,13 @@ customElements.define(
       this.#timeDisplayElement.setSetsStatus(this.#intervalTimer.getCurrentSet(), this.#intervalTimer.getSets())
     }
 
+    /**
+     * @param {Event} event
+     */
     #handleTimeExpired(event) {
-      const time = event.detail.timeString
+      const time = event.detail.minutesSecondsString
       this.#timeDisplayElement.setTime(time)
-
       this.#timeDisplayElement.setTimerStatus(this.#intervalTimer.isWorkTime(), this.#intervalTimer.isExpired())
-
       this.#timeDisplayElement.setSetsStatus(this.#intervalTimer.getCurrentSet(), this.#intervalTimer.getSets())
     }
 

@@ -18,15 +18,22 @@ export class IntervalTimer {
    * @type {number} - time in milleseconds.
    */
   #restTime
-  #timer
-  #isWorkTime
-  #isExpired
-  #soundEffect
-
   /**
-   * @type {HTMLSpanElement}
+   * @type {Timer}
    */
-  #eventHandlerElement = document.createElement('span')
+  #timer
+  /**
+   * @type {boolean}
+   */
+  #isWorkTime
+  /**
+   * @type {boolean}
+   */
+  #isExpired
+  /**
+   * @type {Sound}
+   */
+  #soundEffect
 
   constructor(sets, workingTime, restTime) {
     this.#sets = sets
