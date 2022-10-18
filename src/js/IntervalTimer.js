@@ -87,7 +87,9 @@ export class IntervalTimer {
   }
 
   start() {
-    this.#timer.start()
+    if (!this.#isExpired) {
+      this.#timer.start()
+    }
   }
 
   pause() {
