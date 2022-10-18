@@ -1,30 +1,46 @@
-# lab-2
+# Lab 2 - Interval Timer
 
-Timer/intervall web app
+> This readme contains information about the application and how to use it. Information for developers (requirements, testing, etc) is found in the [DEVELOPER.md](./DEVELOPER.md). Reflection of the assignment is found in [REFLECTION.md](./REFLECTION.md).
 
-[Lab-2-instructioner](https://docs.google.com/document/d/1jIFavAG_4qCO9P8DC2EjSLTe_HSH98LkP3rpvyU0Au0/edit#)
+> My module is installed via npm. The module repo is found [here](https://github.com/eric-sundquist/tick-tock-timer)
 
-## Vision
+## Description
 
-Tick-Tock Interval Timer app let the user define a working timer followed by a resting timer. These intervals can then by multiplied in forms of sets. Upon start and end of a working session the user is notified. The application is presented as a web app with a simplistic and minimalistic user interface.
+Interval Timer let you define a working timer followed by a resting timer. These intervals can then by multiplied in forms of sets. You will get notified as a new interval beginns on screen and by sound.
 
-To set up a new timer the user defines a working time, resting time and how many times they should repeat, i.e. sets.
+Example of use:
 
-## Requirements
+- Training intervals, define training time followed by rest.
+- Study timer, use for example the pomodoro technique.
 
-### Functional requirements
+![App example 1](./img/app-ex-1.png)
+![App example 2](./img/app-ex-2.png)
 
-1. On inital applikation load a user should be able to define a working time, resting time and amount of sets.
-2. After setting these parameters the user should be able to start the interval.
-3. On Initial start the timer will do a prepare countdown of 5 seconds.
-4. A user should be able to pause and reset a started interval.
-5. When working starts the user should be notified (sound, color, text)
-6. When working ends the user should be notified (sound, color, text)
-7. After the working time on the last set the timer should finish (not run the last rest timer)
-8. (?) Spara presets
-9. (?) Ställa in fler variabler för intervall. Till exempel köra 7:3 x 6 rep x 5 set. hangboard.
+## Try the application locally
 
-### Non-Functional requirements
+1. Clone the repository
+2. Go to directory, `cd lab-2`
+3. Install dev dependencies, `npm i`
+4. Start dev server, `npm run dev`
+5. Use app
 
-1. Applikationen ska finnas tillgänglig i webbläsaren.
-2. Ska använda tick-tock timer modulen.
+## Basic usage
+
+1. Define a new timer by entering the work and rest times and how many times they should be repeated.
+2. Press start.
+3. Timer has now started.
+
+#### Controlls
+
+- _Start_: If timer has been paused it can be started again via this button.
+- _Pause_: Pauses the timer.
+- _Reset_: Resets the timer to the intial set values.
+- _Exit_: Stops the timer and let you define a new.
+
+## Publish app
+
+When publishing the app to a real server. Build the application using `npm run build`. It will create a `dist` folder in the root of the repo which you then publish to the server.
+
+## Licens
+
+MIT License, (See adjacent LICENSE file)

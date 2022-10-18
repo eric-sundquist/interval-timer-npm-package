@@ -116,7 +116,6 @@ customElements.define(
      */
     #handleTimeUpdate(event) {
       const time = event.detail.minutesSecondsString
-      console.log(time)
       this.#timeDisplayElement.setTime(time)
 
       this.#timeDisplayElement.setTimerStatus(this.#intervalTimer.isWorkTime())
