@@ -70,6 +70,12 @@ customElements.define(
       this.#controlsElement.addEventListener('start', () => this.#intervalTimer.start())
       this.#controlsElement.addEventListener('pause', () => this.#intervalTimer.pause())
       this.#controlsElement.addEventListener('reset', () => this.#intervalTimer.reset())
+      this.#controlsElement.addEventListener('exit', () => this.#handleExit())
+    }
+
+    #handleExit() {
+      this.#intervalTimer.reset()
+      this.#updateComponentVisability()
     }
 
     /**
@@ -105,9 +111,11 @@ customElements.define(
     }
 
     #handleTimeUpdate(event) {
-      const timeString = event.detail.timeString
-
-      this.#timeDisplayElement.setAttribute('time', timeString)
+      const time = event.detail.timeString
+      this.#timeDisplayElement.setAttribute('time', time)
+      this.#timeDisplayElement.setAttribute('isWorkTime', this.#intervalTimer.isWorkTime)
+      this.#timeDisplayElement.setAttribute('totalSets', this.#intervalTimer.getSets())
+      this.#timeDisplayElement.setAttribute('currentSet', this.#intervalTimer.getCurrentSet())
     }
 
     #updateComponentVisability() {

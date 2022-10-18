@@ -50,6 +50,10 @@ customElements.define(
      * @type {HTMLButtonElement}
      */
     #resetBtn
+    /**
+     * @type {HTMLButtonElement}
+     */
+    #exitBtn
 
     constructor() {
       super()
@@ -58,16 +62,16 @@ customElements.define(
       this.#startBtn = this.shadowRoot.querySelector('#start')
       this.#pauseBtn = this.shadowRoot.querySelector('#pause')
       this.#resetBtn = this.shadowRoot.querySelector('#reset')
+      this.#exitBtn = this.shadowRoot.querySelector('#exit')
 
       this.#addEventListeners()
     }
 
     #addEventListeners() {
       this.#startBtn.addEventListener('click', (event) => this.#handleStart(event))
-
       this.#pauseBtn.addEventListener('click', (event) => this.#handlePause(event))
-
       this.#resetBtn.addEventListener('click', (event) => this.#handleReset(event))
+      this.#exitBtn.addEventListener('click', (event) => this.#handleExit(event))
     }
 
     #handleStart() {
@@ -77,8 +81,13 @@ customElements.define(
     #handlePause() {
       this.#dispatchEvent('pause')
     }
+
     #handleReset() {
       this.#dispatchEvent('reset')
+    }
+
+    #handleExit() {
+      this.#dispatchEvent('exit')
     }
 
     #dispatchEvent(eventName) {

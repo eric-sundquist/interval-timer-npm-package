@@ -6,7 +6,10 @@ export class IntervalTimer {
    * @type {number}
    */
   #sets
-  #setCount
+  /**
+   * @type {number}
+   */
+  #currentSet
   /**
    * @type {number} - time in milleseconds.
    */
@@ -26,7 +29,7 @@ export class IntervalTimer {
 
   constructor(sets, workingTime, restTime) {
     this.#sets = sets
-    this.#setCount = 1
+    this.#currentSet = 1
     this.#workTime = workingTime
     this.#restTime = restTime
     this.#isWorkTime = false
@@ -73,6 +76,14 @@ export class IntervalTimer {
     this.#sets = sets
   }
 
+  getSets() {
+    return this.#sets
+  }
+
+  getCurrentSet() {
+    return this.#currentSet
+  }
+
   get isWorkTime() {
     return this.#isWorkTime
   }
@@ -85,7 +96,7 @@ export class IntervalTimer {
     } else {
       this.#soundEffect.playDing()
       this.#isWorkTime = true
-      this.#setCount += 1
+      this.#currentSet += 1
       this.#timer.setTime(this.#workTime)
     }
     if (this.#hasSetsLeft()) {
@@ -94,7 +105,7 @@ export class IntervalTimer {
   }
 
   #hasSetsLeft() {
-    return this.#setCount <= this.#sets
+    return this.#currentSet <= this.#sets
   }
 
   #validatePositiveInteger(number) {
